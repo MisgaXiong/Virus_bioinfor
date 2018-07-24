@@ -1,0 +1,12 @@
+#下载H5N1 NP基因序列得到文件NP_test.fasta
+raxmlHPC -f a -x 12345 -p 12345 -# 100 -m PROTGAMMALGX -s NP_test.fasta -n NP_test
+#其中 -f选择的算法，a代表rapid Bootstrap算法。较快速。
+　
+ 
+ 
+library(ggtree)
+raxml<-read.raxml("RAxML_bipartitionsBranchLabels.NP_test")
+p<-ggtree(raxml)
+p<-p+geom_label(aes(label=bootstrap,fill=bootstrap))
+p<-p+geom_tiplab()+scale_fill_continuous(low='darkgreen',high = 'red')
+p<-p+theme_tree2(legend.position='right')
